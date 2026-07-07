@@ -11,6 +11,8 @@ services:
     networks:
       - coolify
     restart: unless-stopped
+    volumes:
+      - 'home/ubuntu/.hermes:/opt/data'
 
 networks:
   coolify:
