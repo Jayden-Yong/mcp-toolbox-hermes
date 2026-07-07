@@ -1,0 +1,17 @@
+services:
+  mcp-toolbox:
+    build: .
+    container_name: mcp-toolbox
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - OPENCODE_ZEN_API_KEY=${OPENCODE_ZEN_API_KEY}
+      - VISION_MODEL_NAME=${VISION_MODEL_NAME}
+      - VISION_MODEL_BASE_URL=${VISION_MODEL_BASE_URL}
+      - MCP_PORT=${MCP_PORT}
+    networks:
+      - coolify
+    restart: unless-stopped
+
+networks:
+  coolify:
+    external: true
