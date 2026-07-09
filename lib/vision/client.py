@@ -12,6 +12,7 @@ class VisionClient:
     @classmethod
     def from_env(cls) -> "VisionClient":
         """Factory method to build a VisionClient from system config/env variables."""
+        from config import VISION_MODEL_API_KEY, VISION_MODEL_NAME, VISION_MODEL_BASE_URL
 
         base_url_lower = VISION_MODEL_BASE_URL.lower()
         model_name_lower = VISION_MODEL_NAME.lower()
