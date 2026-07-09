@@ -1,6 +1,7 @@
 import fitz
 from mcp.server.fastmcp import FastMCP
-from lib.vision_client import describe_image
+# from lib.vision_client import describe_image
+from lib.vision import describe_image
 
 
 def register(mcp: FastMCP):
