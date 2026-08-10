@@ -1,10 +1,10 @@
 import fitz
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 # from lib.vision_client import describe_image
 from lib.vision import describe_image
 
 
-def register(mcp: FastMCP):
+def register(mcp: MCPServer):
 
     @mcp.tool()
     def extract_pdf_text(file_path: str) -> str:
