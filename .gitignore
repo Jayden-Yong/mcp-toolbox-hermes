@@ -1,5 +1,17 @@
+# Secrets
 .env
+docker-compose.override.yml
+
+# Python
 __pycache__/
 *.pyc
+
+# Virtual Environments
 .venv/
-docker-compose.override.yml
+
+# Testing and Coverage
+.coverage
+.pytest_cache/
+
+# IDE
+.vscode
