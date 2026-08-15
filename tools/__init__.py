@@ -2,10 +2,12 @@ import importlib
 import pkgutil
 
 def register_all(mcp):
-    """Auto-discover and register every tool module in this package."""
+    """Auto-discover and register every tool module in tools/, including subdirs"""
     package = __name__
-    for _, module_name, _ in pkgutil.iter_modules(__path__):
-        module = importlib.import_module(f"{package}.{module_name}")
+    for _, module_name, is_pkg in pkgutil.walk_packages(__path__, prefix=package + "."):
+        if is_pkg:
+            continue  # skip package __init__ files themselves, only import leaf modules
+        module = importlib.import_module(module_name)
         if hasattr(module, "register"):
             module.register(mcp)
             print(f"Registered tool module: {module_name}")
