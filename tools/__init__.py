@@ -1,6 +1,7 @@
 import importlib
 import pkgutil
 
+
 def register_all(mcp):
     """Auto-discover and register every tool module in tools/, including subdirs"""
     package = __name__

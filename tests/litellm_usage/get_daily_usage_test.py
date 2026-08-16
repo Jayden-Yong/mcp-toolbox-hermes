@@ -1,6 +1,9 @@
-import pytest
 from unittest.mock import AsyncMock, MagicMock, patch
+
+import pytest
+
 from tools.litellm_usage.get_daily_usage import get_daily_usage, register
+
 
 @pytest.mark.asyncio
 async def test_get_daily_usage_success():
@@ -8,12 +11,15 @@ async def test_get_daily_usage_success():
 
     with patch("tools.litellm_usage.get_daily_usage.httpx.AsyncClient") as mock_client:
         instance = mock_client.return_value.__aenter__.return_value
-        instance.get = AsyncMock(return_value=AsyncMock(
-            json=lambda: mock_response,
-            raise_for_status=lambda: None,
-        ))
+        instance.get = AsyncMock(
+            return_value=AsyncMock(
+                json=lambda: mock_response,
+                raise_for_status=lambda: None,
+            )
+        )
         result = await get_daily_usage()
         assert result == mock_response
+
 
 @pytest.mark.asyncio
 async def test_register():

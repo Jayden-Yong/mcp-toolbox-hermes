@@ -1,5 +1,6 @@
 import fitz
 from mcp.server.mcpserver import MCPServer
+
 # from lib.vision_client import describe_image
 from lib.vision import describe_image
 
@@ -20,12 +21,12 @@ def register(mcp: MCPServer):
     def extract_pdf_via_vision(
         file_path: str,
         page: int = 0,
-        prompt: str = "Extract and transcribe all text and describe any diagrams on this page."
+        prompt: str = "Extract and transcribe all text and describe any diagrams on this page.",
     ) -> str:
         """
         Extract content from a scanned/image PDF page using a vision model.
         Use when extract_pdf_text returns no text.
-        You can customize the prompt based on what you need — e.g. 
+        You can customize the prompt based on what you need — e.g.
         'Extract this table as markdown' or 'Describe the chart and its data points'.
         """
         doc = fitz.open(file_path)

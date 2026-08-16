@@ -1,6 +1,7 @@
 from mcp.server.mcpserver import MCPServer
-from tools import register_all
+
 from config import MCP_PORT
+from tools import register_all
 
 mcp = MCPServer("garden-of-memoria")
 register_all(mcp)

@@ -1,6 +1,9 @@
 import base64
+
 import httpx
-from config import VISION_MODEL_API_KEY, VISION_MODEL_NAME, VISION_MODEL_BASE_URL
+
+from config import VISION_MODEL_API_KEY, VISION_MODEL_BASE_URL, VISION_MODEL_NAME
+
 
 def describe_image(image_path: str, prompt: str) -> str:
     """Send an image to the configured vision model and return its text response."""
@@ -11,7 +14,7 @@ def describe_image(image_path: str, prompt: str) -> str:
         f"{VISION_MODEL_BASE_URL}/chat/completions",
         headers={
             "Authorization": f"Bearer {VISION_MODEL_API_KEY}",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         },
         json={
             "model": VISION_MODEL_NAME,
@@ -22,14 +25,14 @@ def describe_image(image_path: str, prompt: str) -> str:
                         {"type": "text", "text": prompt},
                         {
                             "type": "image_url",
-                            "image_url": {"url": f"data:image/png;base64,{img_b64}"}
-                        }
-                    ]
+                            "image_url": {"url": f"data:image/png;base64,{img_b64}"},
+                        },
+                    ],
                 }
             ],
-            "max_tokens": 4096
+            "max_tokens": 4096,
         },
-        timeout=30
+        timeout=30,
     )
     response.raise_for_status()
     result = response.json()

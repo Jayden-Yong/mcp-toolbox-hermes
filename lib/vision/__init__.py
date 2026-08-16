@@ -3,11 +3,12 @@ from lib.vision.client import VisionClient
 
 __all__ = [
     "TokenUsage",
-    "VisionResponse",
-    "VisionProvider",
     "VisionClient",
+    "VisionProvider",
+    "VisionResponse",
     "describe_image",
 ]
+
 
 def describe_image(image_path: str, prompt: str) -> str:
     """
