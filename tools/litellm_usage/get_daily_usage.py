@@ -12,7 +12,7 @@ LITELLM_API_KEY = os.environ.get("LITELLM_API_KEY", "")
 async def get_daily_usage(
     start_date: str | None = None, end_date: str | None = None
 ) -> dict:
-    """Get LiteLLM spend/usage for a date range (YYYY-MM-DD, defaults to today). Requires LITELLM_API_KEY with spend access (master key)."""
+    """Get LiteLLM spend/usage for a date range (YYYY-MM-DD, defaults to today)."""
     if start_date is None or end_date is None:
         today = datetime.now(UTC).date().isoformat()
         start_date = start_date or today
