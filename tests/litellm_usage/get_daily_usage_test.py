@@ -4,6 +4,7 @@ import pytest
 
 from tools.litellm_usage.get_daily_usage import get_daily_usage, register
 
+
 @pytest.mark.asyncio
 async def test_get_daily_usage_success():
     mock_response = {"results": [{"date": "2026-08-14", "spend": 1.23}]}
