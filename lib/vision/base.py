@@ -1,22 +1,27 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from typing import Any, Dict, Optional
+from typing import Any
+
 
 @dataclass
 class TokenUsage:
     """Standardized representation of API token usage."""
-    prompt_tokens: Optional[int] = None
-    completion_tokens: Optional[int] = None
-    total_tokens: Optional[int] = None
+
+    prompt_tokens: int | None = None
+    completion_tokens: int | None = None
+    total_tokens: int | None = None
+
 
 @dataclass
 class VisionResponse:
     """Model-agnostic and provider-agnostic response container."""
+
     text: str
     model: str
     provider: str
     usage: TokenUsage = field(default_factory=TokenUsage)
-    raw_response: Dict[str, any] = field(default_factory=dict)
+    raw_response: dict[str, Any] = field(default_factory=dict)
+
 
 @dataclass
 class VisionProvider(ABC):
@@ -25,4 +30,3 @@ class VisionProvider(ABC):
     @abstractmethod
     def describe_image(self, image_path: str, prompt: str) -> VisionResponse:
         """Sends an image to the model and returns a standardized VisionResponse."""
-        pass
