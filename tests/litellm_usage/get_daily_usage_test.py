@@ -1,3 +1,4 @@
+from datetime import UTC, datetime
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
@@ -17,8 +18,31 @@ async def test_get_daily_usage_success():
                 raise_for_status=lambda: None,
             )
         )
+        result = await get_daily_usage("2026-08-14", "2026-08-14")
+
+    assert result == mock_response
+    _, kwargs = instance.get.call_args
+    assert kwargs["params"] == {"start_date": "2026-08-14", "end_date": "2026-08-14"}
+
+
+@pytest.mark.asyncio
+async def test_get_daily_usage_defaults_to_today():
+    mock_response = {"results": []}
+
+    with patch("tools.litellm_usage.get_daily_usage.httpx.AsyncClient") as mock_client:
+        instance = mock_client.return_value.__aenter__.return_value
+        instance.get = AsyncMock(
+            return_value=AsyncMock(
+                json=lambda: mock_response,
+                raise_for_status=lambda: None,
+            )
+        )
         result = await get_daily_usage()
-        assert result == mock_response
+
+    assert result == mock_response
+    _, kwargs = instance.get.call_args
+    assert kwargs["params"]["start_date"] == datetime.now(UTC).date().isoformat()
+    assert kwargs["params"]["end_date"] == datetime.now(UTC).date().isoformat()
 
 
 @pytest.mark.asyncio
