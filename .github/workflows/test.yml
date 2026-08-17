@@ -28,7 +28,7 @@ jobs:
       run: python -c "from server import mcp; print('server OK')"
 
     - name: Run tests
-      run: pytest
+      run: pytest --cov=tools --cov-report=term-missing
 
   typecheck:
     runs-on: ubuntu-latest
