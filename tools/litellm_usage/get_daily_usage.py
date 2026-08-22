@@ -33,7 +33,7 @@ async def get_daily_usage(
             "usage": results["metadata"],
         }
 
-        return summary.json()
+        return summary
 
 
 def register(mcp: MCPServer):
