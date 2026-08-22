@@ -20,20 +20,6 @@ class VisionClient:
             VISION_MODEL_NAME,
         )
 
-        """
-        if "anthropic" in base_url_lower or "claude" in model_name_lower:
-            provider = AnthropicProvider(
-                api_key=VISION_MODEL_API_KEY,
-                model_name=VISION_MODEL_NAME
-            )
-        else:
-            provider = OpenAICompatibleProvider(
-                base_url=VISION_MODEL_BASE_URL,
-                api_key=VISION_MODEL_API_KEY,
-                model_name=VISION_MODEL_NAME
-            )
-        """
-
         provider = OpenAICompatibleProvider(
             base_url=VISION_MODEL_BASE_URL,
             api_key=VISION_MODEL_API_KEY,

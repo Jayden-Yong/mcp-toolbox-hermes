@@ -22,12 +22,14 @@ async def get_daily_usage(
 
     async with httpx.AsyncClient() as client:
         resp = await client.get(
-            f"{LITELLM_BASE_URL}/user/daily/activity",
+            f"{LITELLM_BASE_URL}/user/daily/activity/aggregated",
             headers={"Authorization": f"Bearer {LITELLM_API_KEY}"},
             params=params,
         )
         resp.raise_for_status()
-        return resp.json()
+        results = resp.json()
+
+        return results["metadata"]
 
 
 def register(mcp: MCPServer):
