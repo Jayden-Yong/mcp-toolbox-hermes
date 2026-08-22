@@ -12,6 +12,8 @@ __pycache__/
 # Testing and Coverage
 .coverage
 .pytest_cache/
+.ruff_cache/
 
 # IDE
 .vscode
+.idea
