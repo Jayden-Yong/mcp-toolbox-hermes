@@ -29,11 +29,7 @@ async def get_daily_usage(
         resp.raise_for_status()
         results = resp.json()
 
-        summary = {
-            "usage": results["metadata"],
-        }
-
-        return summary
+        return results["metadata"]
 
 
 def register(mcp: MCPServer):
