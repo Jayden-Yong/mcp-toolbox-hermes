@@ -1,10 +1,9 @@
 import os
 from datetime import UTC, datetime
+from typing import Annotated
 
 import httpx
 from mcp.server.mcpserver import MCPServer
-
-from typing import Annotated
 from pydantic import Field
 
 # http://litellm:4000
