@@ -13,7 +13,7 @@ DEFAULT_PROMPT = (
 def registered_tools():
     tools = {}
     mcp = MagicMock()
-    mcp.tool.side_effect = lambda: (lambda fn: tools.setdefault(fn.__name__, fn))
+    mcp.tool.side_effect = lambda: lambda fn: tools.setdefault(fn.__name__, fn)
     register(mcp)
     return tools
 
@@ -129,7 +129,7 @@ def test_pdf_page_count(registered_tools):
 def test_register_exposes_three_tools():
     tools = {}
     mcp = MagicMock()
-    mcp.tool.side_effect = lambda: (lambda fn: tools.setdefault(fn.__name__, fn))
+    mcp.tool.side_effect = lambda: lambda fn: tools.setdefault(fn.__name__, fn)
 
     register(mcp)
 

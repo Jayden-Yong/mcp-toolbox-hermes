@@ -5,7 +5,7 @@ from tools import register_all
 
 def _capturing_mcp(tools: dict) -> MagicMock:
     mcp = MagicMock()
-    mcp.tool.side_effect = lambda: (lambda fn: tools.setdefault(fn.__name__, fn))
+    mcp.tool.side_effect = lambda: lambda fn: tools.setdefault(fn.__name__, fn)
     return mcp
 
 

@@ -10,7 +10,7 @@ def register(mcp: MCPServer):
     def extract_pdf_text(file_path: str) -> str:
         """Extract raw text from a local PDF file. Use this first for text-based PDFs."""
         doc = pymupdf.open(file_path)
-        text = "\n".join(page.get_text() for page in doc)
+        text = "\n".join(page.get_text() for page in doc.pages())
         doc.close()
         if not text.strip():
             return "No extractable text found. This is likely a scanned/image PDF — use extract_pdf_via_vision instead."
