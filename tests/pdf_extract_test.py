@@ -24,7 +24,7 @@ def test_extract_pdf_text_joins_pages(registered_tools):
     page1.get_text.return_value = "hello"
     page2.get_text.return_value = "world"
     doc = MagicMock()
-    doc.__iter__.return_value = [page1, page2]
+    doc.pages.return_value = [page1, page2]
 
     with patch("tools.pdf_extract.pymupdf.open", return_value=doc) as mock_open:
         result = extract_pdf_text("/tmp/sample.pdf")
