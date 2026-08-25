@@ -1,4 +1,4 @@
-import fitz
+import pymupdf
 from mcp.server.mcpserver import MCPServer
 
 # from lib.vision_client import describe_image
@@ -6,12 +6,11 @@ from lib.vision import describe_image
 
 
 def register(mcp: MCPServer):
-
     @mcp.tool()
     def extract_pdf_text(file_path: str) -> str:
         """Extract raw text from a local PDF file. Use this first for text-based PDFs."""
-        doc = fitz.open(file_path)
-        text = "\n".join(page.get_text() for page in doc)
+        doc = pymupdf.open(file_path)
+        text = "\n".join(page.get_text() for page in doc.pages())
         doc.close()
         if not text.strip():
             return "No extractable text found. This is likely a scanned/image PDF — use extract_pdf_via_vision instead."
@@ -29,10 +28,11 @@ def register(mcp: MCPServer):
         You can customize the prompt based on what you need — e.g.
         'Extract this table as markdown' or 'Describe the chart and its data points'.
         """
-        doc = fitz.open(file_path)
-        if page >= len(doc):
+        doc = pymupdf.open(file_path)
+        page_count = len(doc)
+        if page >= page_count:
             doc.close()
-            return f"Page {page} out of range. PDF has {len(doc)} pages."
+            return f"Page {page} out of range. PDF has {page_count} pages."
 
         pix = doc[page].get_pixmap(dpi=150)
         img_path = f"/tmp/pdf_page_{page}.png"
@@ -44,7 +44,7 @@ def register(mcp: MCPServer):
     @mcp.tool()
     def pdf_page_count(file_path: str) -> str:
         """Get the total number of pages in a PDF."""
-        doc = fitz.open(file_path)
+        doc = pymupdf.open(file_path)
         count = len(doc)
         doc.close()
         return f"{count} pages"
